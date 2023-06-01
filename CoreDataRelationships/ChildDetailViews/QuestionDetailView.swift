@@ -24,22 +24,22 @@ struct QuestionDetailView: View {
     
     var body: some View {
         Form {
-            Section (header: Text("Name")) {
+            Section (header: Text("Question")) {
                 List {
                     Text(question.name ?? "")
                 }
             }
-            Section (header: Text("School")) {
+            Section (header: Text("Session")) {
                 List {
                     Text(session?.name ?? "")
                 }
             }
-            Section (header : Text ("Principal")) {
+            Section (header : Text ("Interview")) {
                 List {
                     Text (interview?.name ?? "")
                 }
             }
-            Section (header: Text("Students")) {
+            Section (header: Text("Response")) {
                 List {
                     ForEach (response) { name in
                         Text(name.name ?? "")
@@ -47,7 +47,7 @@ struct QuestionDetailView: View {
                 }
             }
         }
-        .navigationTitle("Teacher")
+        .navigationTitle("Question")
         .navigationBarTitleDisplayMode(.inline)
     }
 }

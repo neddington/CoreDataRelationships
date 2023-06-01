@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum ActiveAlertPrincipal {
-    case first, second, third, zero
+    case first, zero
 }
 
 struct AddNewInterviewView: View {
@@ -23,8 +23,7 @@ struct AddNewInterviewView: View {
     @State private var activeAlert : ActiveAlertPrincipal = .zero
     
     @State private var name = ""
-    @State private var age = ""
-    @State private var experience = ""
+
     
     var body: some View {
         NavigationView {
@@ -32,12 +31,7 @@ struct AddNewInterviewView: View {
                 Section (header: Text("Name")) {
                     TextField("Enter a name", text: $name)
                 }
-                Section (header: Text("Age")) {
-                    TextField("Enter age", text: $age)
-                }
-                Section (header: Text("Experience")) {
-                    TextField("Enter experience", text: $experience)
-                }
+
             }
             .navigationTitle("Add New Principal")
             .toolbar {
@@ -60,10 +54,6 @@ struct AddNewInterviewView: View {
                 switch activeAlert {
                 case .first:
                     return Alert(title: Text("Name is empty"), message: Text("Please enter name"), dismissButton: .default(Text("OK")))
-                case .second:
-                    return Alert(title: Text("Age is incorrect"), message: Text("Please enter an integer"), dismissButton: .default(Text("OK")))
-                case .third:
-                    return Alert(title: Text("Experience is incorrect"), message: Text("Please enter an integer"), dismissButton: .default(Text("OK")))
                
                 case .zero:
                     return Alert(title: Text("Name is empty"), message: Text("Please enter name"), dismissButton: .cancel())
@@ -79,21 +69,13 @@ struct AddNewInterviewView: View {
             self.activeAlert = .first
             self.showAlert = true
         }
-        else if Int(self.age) == nil || self.age == "" {
-            self.activeAlert = .second
-            self.showAlert = true
-        }
-        else if Int(self.experience) == nil || self.experience == ""  {
-            self.activeAlert = .third
-            self.showAlert = true
-        }
-        
+          
         else {
-            let principal = Interview(context: dataController.container.viewContext)
+            let interview = Interview(context: dataController.container.viewContext)
             
-            principal.id = UUID()
-            principal.name = self.name
-            principal.session = self.session
+            interview.id = UUID()
+            interview.name = self.name
+            interview.session = self.session
             
             dataController.save()
             
@@ -102,7 +84,7 @@ struct AddNewInterviewView: View {
     }
 }
 
-struct AddPrincipalView_Previews: PreviewProvider {
+struct AddInterviewView_Previews: PreviewProvider {
     static let dataController = DataController.preview
     
     static var previews: some View {

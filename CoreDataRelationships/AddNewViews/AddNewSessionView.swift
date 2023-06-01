@@ -79,7 +79,7 @@ struct AddNewSessionView: View {
     }
 }
 
-struct AddNewSchool_Previews: PreviewProvider {
+struct AddNewSession_Previews: PreviewProvider {
     static var previews: some View {
         AddNewSessionView()
     }

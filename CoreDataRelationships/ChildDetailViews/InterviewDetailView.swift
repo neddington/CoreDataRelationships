@@ -25,24 +25,24 @@ struct InterviewDetailView: View {
     
     var body: some View {
         Form {
-            Section (header: Text("Name")) {
+            Section (header: Text("Interview")) {
                 List {
                     Text("\(interview.name ?? "")")
                 }
             }
-            Section (header: Text("School")) {
+            Section (header: Text("Sessions")) {
                 List {
                     Text("\(session?.name ?? "")")
                 }
             }
-            Section (header: Text("Teachers")) {
+            Section (header: Text("Questions")) {
                 List {
                     ForEach(question) { question in
                         Text("\(question.name ?? "")")
                     }
                 }
             }
-            Section (header: Text("Students")) {
+            Section (header: Text("Responses")) {
                 List {
                     ForEach(response) { response in
                         Text("\(response.name ?? "")")
@@ -50,7 +50,7 @@ struct InterviewDetailView: View {
                 }
             }
         }
-        .navigationTitle("Principal")
+        .navigationTitle("Interview")
         .navigationBarTitleDisplayMode(.inline)
     }
 }

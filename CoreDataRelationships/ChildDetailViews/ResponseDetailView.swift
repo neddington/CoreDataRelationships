@@ -11,8 +11,7 @@ struct ResponseDetailView: View {
     
     let response : Response
     
-    // The school, principal and teachers objects are fetched from
-    // the student object itself
+
     var session : Session? {
         response.session
     }
@@ -30,17 +29,17 @@ struct ResponseDetailView: View {
                     Text(response.name ?? "")
                 }
             }
-            Section (header : Text("School")) {
+            Section (header : Text("Session")) {
                 List {
                     Text (session?.name ?? "")
                 }
             }
-            Section (header: Text("Principal")) {
+            Section (header: Text("Interview")) {
                 List {
                     Text (interview?.name ?? "")
                 }
             }
-            Section (header : Text ("Teachers")) {
+            Section (header : Text ("Questions")) {
                 List {
                     ForEach (question) { question in
                         Text(question.name ?? "")
