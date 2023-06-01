@@ -2,7 +2,7 @@
 //  StudentDetailView.swift
 //  CoreDataRelationships
 //
-//  Created by Sahil Satralkar on 29/03/22.
+//  Created by Nick Eddington.
 //
 
 import SwiftUI

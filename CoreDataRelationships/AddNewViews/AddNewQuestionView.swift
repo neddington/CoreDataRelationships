@@ -2,7 +2,7 @@
 //  AddTeacherView.swift
 //  CoreDataRelationships
 //
-//  Created by Sahil Satralkar on 27/03/22.
+//  Created by Nick Eddington.
 //
 
 import SwiftUI

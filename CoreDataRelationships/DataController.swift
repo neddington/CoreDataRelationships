@@ -2,7 +2,7 @@
 //  DataController.swift
 //  CoreDataRelationships
 //
-//  Created by Sahil Satralkar on 25/03/22.
+//  Created by Nick Eddington.
 //
 
 import Foundation
@@ -148,12 +148,14 @@ class DataController : ObservableObject {
     }
     
     func deleteAll() {
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = Session.fetchRequest()
-        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-        
-        _ = try? container.viewContext.execute(batchDeleteRequest)
+        let entities = container.managedObjectModel.entities
+        entities.compactMap({ $0.name }).forEach { entityName in
+            let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: entityName)
+            let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+            
+            _ = try? container.viewContext.execute(deleteRequest)
+        }
     }
-    
     static var preview : DataController = {
         let dataController = DataController()
         let viewContext = dataController.container.viewContext
