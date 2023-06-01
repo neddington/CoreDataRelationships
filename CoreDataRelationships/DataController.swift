@@ -46,7 +46,7 @@ class DataController : ObservableObject {
         let interview2 = Interview(context: viewContext)
         interview2.id = UUID()
         interview2.name = "Defense Against Dark Arts Interview"
-        interview2.session = session1
+        interview2.session = session2
         
         
         let question1 = Question(context: viewContext)
@@ -71,7 +71,7 @@ class DataController : ObservableObject {
         question4.id = UUID()
         question4.name = "What uniqueness do you believe you'd bring to Hogwarts?"
         question4.date = Date()
-        question4.session = session1
+        question4.session = session2
         
         let question5 = Question(context: viewContext)
         question5.id = UUID()
@@ -85,7 +85,7 @@ class DataController : ObservableObject {
         
         let questionInterview2 = QuestionInterview(context: viewContext)
         questionInterview2.question = question2
-        questionInterview2.interview = interview1
+        questionInterview2.interview = interview2
         
         let questionInterview3 = QuestionInterview(context: viewContext)
         questionInterview3.question = question3
@@ -93,52 +93,51 @@ class DataController : ObservableObject {
         
         let questionInterview4 = QuestionInterview(context: viewContext)
         questionInterview4.question = question4
-        questionInterview4.interview = interview1
+        questionInterview4.interview = interview2
         
         let questionInterview5 = QuestionInterview(context: viewContext)
         questionInterview5.question = question5
-        questionInterview5.interview = interview2
+        questionInterview5.interview = interview1
         
         let response1 = Response(context: viewContext)
         response1.id = UUID()
-        response1.name = "The fact that the castle is always moving and theres always something different to see."
+        response1.name = "The fact that the castle is always moving and there's always something different to see."
         response1.date = Date()
-        response1.session = session2
+        response1.session = session1
         response1.interview = interview1
-        response1.question = [question1]
-        
+        response1.question = [question1] // Assign question1 to response1
+
         let response2 = Response(context: viewContext)
         response2.id = UUID()
         response2.name = "All the intricate creatures you won't find anywhere else"
-        response1.date = Date()
-        response1.session = session2
-        response1.interview = interview1
-        response1.question = [question2]
-        
-        
+        response2.date = Date()
+        response2.session = session2
+        response2.interview = interview2
+        response2.question = [question2] // Assign question2 to response2
+
         let response3 = Response(context: viewContext)
         response3.id = UUID()
         response3.name = "Only what my mother taught me."
         response3.date = Date()
-        response3.session = session2
+        response3.session = session1
         response3.interview = interview1
-        response3.question = [question3]
-        
+        response3.question = [question3] // Assign question3 to response3
+
         let response4 = Response(context: viewContext)
         response4.id = UUID()
         response4.name = "I'm strange so I should fit right in!"
         response4.date = Date()
-        response4.session = session1
-        response4.interview = interview1
-        response4.question = [question4]
-        
+        response4.session = session2
+        response4.interview = interview2
+        response4.question = [question4] // Assign question4 to response4
+
         let response5 = Response(context: viewContext)
         response5.id = UUID()
-        response5.name = "Only from what I've learned from reaching, watching and playing Harry Potter."
+        response5.name = "Only from what I've learned from reading, watching, and playing Harry Potter."
         response5.date = Date()
-        response5.session = session2
+        response5.session = session1
         response5.interview = interview1
-        response5.question = [question5]
+        response5.question = [question5] // Assign question5 to response5
         
         
         do {
