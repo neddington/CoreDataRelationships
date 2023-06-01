@@ -1,5 +1,5 @@
 //
-//  AddNewStudent.swift
+//  AddNewResponse.swift
 //  CoreDataRelationships
 //
 //  Created by Nick Eddington.

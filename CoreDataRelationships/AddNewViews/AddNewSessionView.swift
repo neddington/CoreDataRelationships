@@ -1,5 +1,5 @@
 //
-//  AddNewSchool.swift
+//  AddNewSession.swift
 //  CoreDataRelationships
 //
 //  Created by Nick Eddington.

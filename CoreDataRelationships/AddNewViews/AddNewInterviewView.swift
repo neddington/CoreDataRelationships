@@ -1,5 +1,5 @@
 //
-//  AddPrincipalView.swift
+//  AddNewInterviewView.swift
 //  CoreDataRelationships
 //
 //  Created by Nick Eddington.

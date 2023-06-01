@@ -1,5 +1,5 @@
 //
-//  AddTeacherView.swift
+//  AddNewQuestionView.swift
 //  CoreDataRelationships
 //
 //  Created by Nick Eddington.
