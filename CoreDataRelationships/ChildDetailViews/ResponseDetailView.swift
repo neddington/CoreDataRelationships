@@ -1,5 +1,5 @@
 //
-//  StudentDetailView.swift
+//  ResponseDetailView.swift
 //  CoreDataRelationships
 //
 //  Created by Nick Eddington.

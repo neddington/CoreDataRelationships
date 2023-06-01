@@ -1,5 +1,5 @@
 //
-//  PrincipalDetailView.swift
+//  InterviewDetailView.swift
 //  CoreDataRelationships
 //
 //  Created by Nick Eddington.
@@ -8,7 +8,16 @@
 import SwiftUI
 
 struct InterviewDetailView: View {
-    let interview: Interview
+    @Environment(\.managedObjectContext) private var viewContext
+    
+    @ObservedObject private var interview: Interview
+    
+    @State private var interviewName: String
+    
+    init(interview: Interview) {
+        self.interview = interview
+        _interviewName = State(initialValue: interview.name ?? "")
+    }
     
     var questions: [Question] {
         interview.questionInterviews?.compactMap { ($0 as? QuestionInterview)?.question } ?? []
@@ -18,7 +27,10 @@ struct InterviewDetailView: View {
         Form {
             Section(header: Text("Interview")) {
                 List {
-                    Text("\(interview.name ?? "")")
+                    TextField("Interview Name", text: $interviewName)
+                        .onAppear {
+                            self.interviewName = interview.name ?? ""
+                        }
                 }
             }
             Section(header: Text("Questions")) {
@@ -31,11 +43,26 @@ struct InterviewDetailView: View {
         }
         .navigationTitle("Interview")
         .navigationBarTitleDisplayMode(.inline)
+        .onChange(of: interviewName) { newValue in
+            interview.name = newValue
+            saveChanges()
+        }
+        .onReceive(interview.objectWillChange) { _ in
+            interviewName = interview.name ?? ""
+        }
+    }
+    
+    private func saveChanges() {
+        do {
+            try viewContext.save()
+        } catch {
+            // Handle the error appropriately
+            print("Failed to save changes: \(error)")
+        }
     }
 }
 
 struct InterviewDetailView_Previews: PreviewProvider {
-    
     static var dataController = DataController.preview
     
     static var previews: some View {
@@ -43,5 +70,6 @@ struct InterviewDetailView_Previews: PreviewProvider {
         interview.name = "Dolores Umbridge"
         
         return InterviewDetailView(interview: interview)
+            .environment(\.managedObjectContext, dataController.container.viewContext)
     }
 }

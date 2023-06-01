@@ -1,5 +1,5 @@
 //
-//  TeacherDetailView.swift
+//  QuestionDetailView.swift
 //  CoreDataRelationships
 //
 //  Created by Nick Eddington.
@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct QuestionDetailView: View {
-    let question: Question
+    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.presentationMode) private var presentationMode
+    @ObservedObject var question: Question
     
     var session: Session? {
         question.session
@@ -20,38 +22,45 @@ struct QuestionDetailView: View {
         question.response?.allObjects as? [Response] ?? []
     }
     
+    var questionNameBinding: Binding<String> {
+        Binding<String>(
+            get: { question.name ?? "" },
+            set: { question.name = $0 }
+        )
+    }
+    
     var body: some View {
-        Form {
-            Section(header: Text("Question")) {
-                List {
-                    Text(question.name ?? "")
+        NavigationView {
+            Form {
+                Section(header: Text("Question")) {
+                    TextField("Question", text: questionNameBinding)
                 }
             }
-            Section(header: Text("Session")) {
-                List {
-                    Text(session?.name ?? "")
-                }
-            }
-            Section(header: Text("Interviews")) {
-                List {
-                    ForEach(interviews) { interview in
-                        Text(interview.name ?? "")
-                    }
-                }
-            }
-            Section(header: Text("Response")) {
-                List {
-                    ForEach(response) { name in
-                        Text(name.name ?? "")
+            .navigationTitle("Question")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: saveChanges) {
+                        Text("Save")
                     }
                 }
             }
         }
-        .navigationTitle("Question")
-        .navigationBarTitleDisplayMode(.inline)
+        .onDisappear {
+            saveChanges()
+        }
+    }
+    
+    private func saveChanges() {
+        do {
+            try viewContext.save()
+            presentationMode.wrappedValue.dismiss() // Dismiss the view after saving
+        } catch {
+            // Handle the error
+            print("Error saving question: \(error)")
+        }
     }
 }
-
 
 struct TeacherDetailView_Previews: PreviewProvider {
     static var dataController = DataController.preview

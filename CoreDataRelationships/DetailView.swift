@@ -11,7 +11,8 @@ struct DetailView: View {
     
     @EnvironmentObject var dataController: DataController
     @Environment(\.managedObjectContext) var managedObjectContext
-    
+    @FetchRequest(entity: Question.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Question.date, ascending: true)])
+    var fetchedQuestions: FetchedResults<Question>
     let session : Session
     
     var question : [Question]
@@ -20,9 +21,11 @@ struct DetailView: View {
     
     var interview : [Interview] = []
     
-    @State private var showingAddPrincipal : Bool = false
-    @State private var showingAddTeacher : Bool = false
-    @State private var showingAddStudent : Bool = false
+    @State private var showingAddInterview : Bool = false
+    @State private var showingAddQuestion : Bool = false
+    @State private var showingAddResponse : Bool = false
+    
+    
     
     init(session : Session) {
         self.session = session
@@ -52,7 +55,7 @@ struct DetailView: View {
                     }
                     .onDelete(perform: deleteInterview)
                     Button  {
-                        self.showingAddPrincipal = true
+                        self.showingAddInterview = true
                     } label: {
                         Text("Add Interview")
                     }
@@ -63,13 +66,14 @@ struct DetailView: View {
                     ForEach(question) { question in
                         NavigationLink {
                             QuestionDetailView(question: question)
+                                .environment(\.managedObjectContext, managedObjectContext) // Pass the managed object context
                         } label: {
                             Label(question.name ?? "", systemImage: "bolt.fill")
                         }
                     }
                     .onDelete(perform: deleteQuestion)
                     Button  {
-                        self.showingAddTeacher = true
+                        self.showingAddQuestion = true
                     } label: {
                         Text("Add Question")
                     }
@@ -86,7 +90,7 @@ struct DetailView: View {
                     }
                     .onDelete(perform: deleteResponse)
                     Button  {
-                        self.showingAddStudent = true
+                        self.showingAddResponse = true
                     } label: {
                         Text("Add Response")
                     }
@@ -95,13 +99,13 @@ struct DetailView: View {
         }
         .navigationTitle(Text("Details"))
         .navigationBarTitleDisplayMode(.inline)
-        .sheet(isPresented: $showingAddPrincipal) {
+        .sheet(isPresented: $showingAddInterview) {
             AddNewInterviewView(session: self.session)
         }
-        .sheet(isPresented: $showingAddTeacher) {
+        .sheet(isPresented: $showingAddQuestion) {
             AddNewQuestionView(session: self.session)
         }
-        .sheet(isPresented: $showingAddStudent) {
+        .sheet(isPresented: $showingAddResponse) {
             AddNewResponseView(session: self.session)
         }
     }

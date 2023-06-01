@@ -15,50 +15,45 @@ struct AddNewQuestionView: View {
     
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var moc
-    @EnvironmentObject var dataController : DataController
+    @EnvironmentObject var dataController: DataController
     
-    let session : Session
+    let session: Session
     
     @State private var activeAlert: ActiveAlertQuestion = .zero
-    @State private var showAlert : Bool = false
+    @State private var showAlert: Bool = false
     
     @State private var name: String = ""
-
     
     var body: some View {
         NavigationView {
             Form {
-                Section (header: Text("Question")) {
+                Section(header: Text("Question")) {
                     TextField("Enter question", text: $name)
                 }
             }
             .navigationTitle("Add new Question")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        self.presentationMode.wrappedValue.dismiss()
-                    } label: {
-                        Text("Dismiss")
-                    }
+            .navigationBarItems(
+                leading: Button(action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                }) {
+                    Text("Dismiss")
+                },
+                trailing: Button(action: {
+                    saveButton()
+                }) {
+                    Text("Save")
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        saveButton()
-                    } label: {
-                        Text("Save")
-                    }
-                }
-            }
-            .alert(isPresented : $showAlert) {
+            )
+            .alert(isPresented: $showAlert) {
                 switch activeAlert {
-                    
-                case .first :
+                case .first:
                     return Alert(title: Text("Name is empty"), message: Text("Please enter name"), dismissButton: .default(Text("OK")))
-                case .zero :
+                case .zero:
                     return Alert(title: Text("Field is empty"), dismissButton: .default(Text("OK")))
                 }
             }
         }
+        .navigationViewStyle(StackNavigationViewStyle()) // Add this line
     }
     
     func saveButton() {
