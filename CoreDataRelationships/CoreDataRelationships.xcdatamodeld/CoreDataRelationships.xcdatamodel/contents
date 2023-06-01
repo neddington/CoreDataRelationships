@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22E261" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Interview" representedClassName="Interview" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="question" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Question" inverseName="interview" inverseEntity="Question"/>
+        <relationship name="response" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Response" inverseName="interview" inverseEntity="Response"/>
+        <relationship name="session" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Session" inverseName="interview" inverseEntity="Session"/>
+    </entity>
+    <entity name="Question" representedClassName="Question" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="interview" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Interview" inverseName="question" inverseEntity="Interview"/>
+        <relationship name="response" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Response" inverseName="question" inverseEntity="Response"/>
+        <relationship name="session" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Session" inverseName="question" inverseEntity="Session"/>
+    </entity>
+    <entity name="Response" representedClassName="Response" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="interview" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Interview" inverseName="response" inverseEntity="Interview"/>
+        <relationship name="question" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Question" inverseName="response" inverseEntity="Question"/>
+        <relationship name="session" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Session" inverseName="response" inverseEntity="Session"/>
+    </entity>
+    <entity name="Session" representedClassName="Session" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="interview" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Interview" inverseName="session" inverseEntity="Interview"/>
+        <relationship name="question" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Question" inverseName="session" inverseEntity="Question"/>
+        <relationship name="response" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Response" inverseName="session" inverseEntity="Response"/>
+    </entity>
+</model>
