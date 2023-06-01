@@ -8,40 +8,40 @@
 import SwiftUI
 
 struct QuestionDetailView: View {
+    let question: Question
     
-    let question : Question
-        
-    //The school, principal and students objects are fetched from the teacher object
-    var session : Session? {
+    var session: Session? {
         question.session
     }
-    var interview : Interview? {
-        question.interview
+    var interviews: [Interview] {
+        question.questionInterviews?.compactMap { ($0 as? QuestionInterview)?.interview } ?? []
     }
-    var response : [Response] {
+    var response: [Response] {
         question.response?.allObjects as? [Response] ?? []
     }
     
     var body: some View {
         Form {
-            Section (header: Text("Question")) {
+            Section(header: Text("Question")) {
                 List {
                     Text(question.name ?? "")
                 }
             }
-            Section (header: Text("Session")) {
+            Section(header: Text("Session")) {
                 List {
                     Text(session?.name ?? "")
                 }
             }
-            Section (header : Text ("Interview")) {
+            Section(header: Text("Interviews")) {
                 List {
-                    Text (interview?.name ?? "")
+                    ForEach(interviews) { interview in
+                        Text(interview.name ?? "")
+                    }
                 }
             }
-            Section (header: Text("Response")) {
+            Section(header: Text("Response")) {
                 List {
-                    ForEach (response) { name in
+                    ForEach(response) { name in
                         Text(name.name ?? "")
                     }
                 }
@@ -51,6 +51,7 @@ struct QuestionDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
 }
+
 
 struct TeacherDetailView_Previews: PreviewProvider {
     static var dataController = DataController.preview

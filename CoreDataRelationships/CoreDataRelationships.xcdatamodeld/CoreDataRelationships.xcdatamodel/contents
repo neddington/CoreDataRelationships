@@ -3,7 +3,7 @@
     <entity name="Interview" representedClassName="Interview" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="question" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Question" inverseName="interview" inverseEntity="Question"/>
+        <relationship name="questionInterviews" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="QuestionInterview" inverseName="interview" inverseEntity="QuestionInterview"/>
         <relationship name="response" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Response" inverseName="interview" inverseEntity="Response"/>
         <relationship name="session" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Session" inverseName="interview" inverseEntity="Session"/>
     </entity>
@@ -11,9 +11,13 @@
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="interview" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Interview" inverseName="question" inverseEntity="Interview"/>
+        <relationship name="questionInterviews" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="QuestionInterview" inverseName="question" inverseEntity="QuestionInterview"/>
         <relationship name="response" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Response" inverseName="question" inverseEntity="Response"/>
         <relationship name="session" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Session" inverseName="question" inverseEntity="Session"/>
+    </entity>
+    <entity name="QuestionInterview" representedClassName="QuestionInterview" syncable="YES" codeGenerationType="class">
+        <relationship name="interview" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Interview" inverseName="questionInterviews" inverseEntity="Interview"/>
+        <relationship name="question" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Question" inverseName="questionInterviews" inverseEntity="Question"/>
     </entity>
     <entity name="Response" representedClassName="Response" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>

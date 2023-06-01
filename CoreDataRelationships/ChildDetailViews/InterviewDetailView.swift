@@ -8,44 +8,23 @@
 import SwiftUI
 
 struct InterviewDetailView: View {
+    let interview: Interview
     
-    let interview : Interview
-    
-    // The school, teachers and students objects are fetched from
-    // within the principal object itself
-    var session : Session? {
-        interview.session
-    }
-    var question : [Question] {
-        interview.session?.question?.allObjects as? [Question] ?? []
-    }
-    var response : [Response] {
-        interview.session?.response?.allObjects as? [Response] ?? []
+    var questions: [Question] {
+        interview.questionInterviews?.compactMap { ($0 as? QuestionInterview)?.question } ?? []
     }
     
     var body: some View {
         Form {
-            Section (header: Text("Interview")) {
+            Section(header: Text("Interview")) {
                 List {
                     Text("\(interview.name ?? "")")
                 }
             }
-            Section (header: Text("Sessions")) {
+            Section(header: Text("Questions")) {
                 List {
-                    Text("\(session?.name ?? "")")
-                }
-            }
-            Section (header: Text("Questions")) {
-                List {
-                    ForEach(question) { question in
+                    ForEach(questions) { question in
                         Text("\(question.name ?? "")")
-                    }
-                }
-            }
-            Section (header: Text("Responses")) {
-                List {
-                    ForEach(response) { response in
-                        Text("\(response.name ?? "")")
                     }
                 }
             }

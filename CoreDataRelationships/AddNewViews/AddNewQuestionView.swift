@@ -61,21 +61,23 @@ struct AddNewQuestionView: View {
         }
     }
     
-    func saveButton(){
-        
-        //Validation for textfields
+    func saveButton() {
+        // Validation for textfields
         if self.name.isEmpty {
             self.activeAlert = .first
             self.showAlert = true
-        }
-        else {
+        } else {
             let newQuestion = Question(context: dataController.container.viewContext)
             newQuestion.date = Date()
             newQuestion.name = self.name
             newQuestion.session = self.session
             newQuestion.id = UUID()
-            newQuestion.interview = self.session.interview
             newQuestion.response = self.session.response
+            
+            // Create a new QuestionInterview object
+            let questionInterview = QuestionInterview(context: dataController.container.viewContext)
+            questionInterview.interview = self.session.interview
+            questionInterview.question = newQuestion
             
             dataController.save()
             

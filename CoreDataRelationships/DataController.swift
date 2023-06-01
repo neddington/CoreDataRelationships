@@ -23,6 +23,8 @@ class DataController : ObservableObject {
         }
     }
     
+    
+    
     func createSampleData() {
         let viewContext = container.viewContext
         
@@ -51,36 +53,51 @@ class DataController : ObservableObject {
         question1.id = UUID()
         question1.name = "What sparked your interest about working at Hogwarts?"
         question1.date = Date()
-        question1.interview = interview1
         question1.session = session1
         
         let question2 = Question(context: viewContext)
         question2.id = UUID()
-        question2.name = "What would you say the most peculular thing is about the Wizarding World?"
+        question2.name = "What would you say the most peculiar thing is about the Wizarding World?"
         question2.date = Date()
-        question2.interview = interview1
         question2.session = session2
         
         let question3 = Question(context: viewContext)
         question3.id = UUID()
         question3.name = "What is your experience working with Defense against the dark arts?"
         question3.date = Date()
-        question3.interview = interview1
         question3.session = session1
         
         let question4 = Question(context: viewContext)
         question4.id = UUID()
         question4.name = "What uniqueness do you believe you'd bring to Hogwarts?"
         question4.date = Date()
-        question4.interview = interview1
         question4.session = session1
         
         let question5 = Question(context: viewContext)
         question5.id = UUID()
         question5.name = "What do you know about the history of the school and how it came to be?"
         question5.date = Date()
-        question5.interview = interview2
         question5.session = session1
+        
+        let questionInterview1 = QuestionInterview(context: viewContext)
+        questionInterview1.question = question1
+        questionInterview1.interview = interview1
+        
+        let questionInterview2 = QuestionInterview(context: viewContext)
+        questionInterview2.question = question2
+        questionInterview2.interview = interview1
+        
+        let questionInterview3 = QuestionInterview(context: viewContext)
+        questionInterview3.question = question3
+        questionInterview3.interview = interview1
+        
+        let questionInterview4 = QuestionInterview(context: viewContext)
+        questionInterview4.question = question4
+        questionInterview4.interview = interview1
+        
+        let questionInterview5 = QuestionInterview(context: viewContext)
+        questionInterview5.question = question5
+        questionInterview5.interview = interview2
         
         let response1 = Response(context: viewContext)
         response1.id = UUID()
@@ -155,6 +172,8 @@ class DataController : ObservableObject {
             
             _ = try? container.viewContext.execute(deleteRequest)
         }
+        
+        
     }
     static var preview : DataController = {
         let dataController = DataController()
