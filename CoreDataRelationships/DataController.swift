@@ -117,7 +117,7 @@ class DataController : ObservableObject {
 
         let response3 = Response(context: viewContext)
         response3.id = UUID()
-        response3.name = "Only what my mother taught me."
+        response3.name = "Only what my mama taught me."
         response3.date = Date()
         response3.session = session1
         response3.interview = interview1
@@ -138,6 +138,7 @@ class DataController : ObservableObject {
         response5.session = session1
         response5.interview = interview1
         response5.question = [question5] // Assign question5 to response5
+
         
         
         do {
